@@ -35,7 +35,7 @@ public class Discord {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 			plugin.getLogger().info("Discordへの接続に失敗しました。(DiscordException Token)");
-			plugin.getLogger().info("Disable MyMaid...");
+			plugin.getLogger().info("Disable PeriodMatch...");
 			plugin.getServer().getPluginManager().disablePlugin(plugin);
 			return;
 		}
@@ -51,14 +51,14 @@ public class Discord {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 			plugin.getLogger().info("Discordへの接続に失敗しました。(Login DiscordException)");
-			plugin.getLogger().info("Disable MyMaid...");
+			plugin.getLogger().info("Disable PeriodMatch...");
 			plugin.getServer().getPluginManager().disablePlugin(plugin);
 			return;
 		} catch (RateLimitException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 			plugin.getLogger().info("Discordへの接続に失敗しました。(Login RateLimitException)");
-			plugin.getLogger().info("Disable MyMaid...");
+			plugin.getLogger().info("Disable PeriodMatch...");
 			plugin.getServer().getPluginManager().disablePlugin(plugin);
 			return;
 		}

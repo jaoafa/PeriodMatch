@@ -201,8 +201,8 @@ public class PeriodSecEnd extends BukkitRunnable{
         exception.printStackTrace();
         for(Player p: Bukkit.getServer().getOnlinePlayers()) {
 			if(PermissionsEx.getUser(p).inGroup("Admin") || PermissionsEx.getUser(p).inGroup("Moderator")) {
-				p.sendMessage("[MyMaid] " + ChatColor.GREEN + "MyMaidのシステム障害が発生しました。");
-				p.sendMessage("[MyMaid] " + ChatColor.GREEN + "エラー: " + exception.getMessage());
+				p.sendMessage("[PeriodMatch] " + ChatColor.GREEN + "PeriodMatchのシステム障害が発生しました。");
+				p.sendMessage("[PeriodMatch] " + ChatColor.GREEN + "エラー: " + exception.getMessage());
 			}
 		}
 		boolean res = Discord.send("293856671799967744", "PeriodMatchでエラーが発生しました。" + "\n"

@@ -37,7 +37,7 @@ public class PeriodMatch extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		// クレジット
-		getLogger().info("(c) jao Minecraft Server MyMaid Project.");
+		getLogger().info("(c) jao Minecraft Server PeriodMatch Project.");
 		getLogger().info("Product by tomachi.");
 
 		Load_Plugin("LunaChat");
@@ -161,7 +161,7 @@ public class PeriodMatch extends JavaPlugin {
 			getLogger().info("Using " + PluginName);
 		}else{
 			getLogger().warning("PeriodMatch ERR(NOTLOADED: " + PluginName + ")");
-			getLogger().info("Disable MyMaid...");
+			getLogger().info("Disable PeriodMatch...");
 			getServer().getPluginManager().disablePlugin(this);
 			return;
 		}
