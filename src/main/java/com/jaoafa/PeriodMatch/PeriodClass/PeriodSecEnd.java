@@ -22,6 +22,7 @@ import com.github.ucchyocean.lc.LunaChatAPI;
 import com.github.ucchyocean.lc.channel.ChannelPlayer;
 import com.jaoafa.PeriodMatch.MySQL;
 import com.jaoafa.PeriodMatch.PeriodMatch;
+import com.jaoafa.PeriodMatch.Command.Period;
 import com.jaoafa.PeriodMatch.Discord.Discord;
 
 import ru.tehkode.permissions.bukkit.PermissionsEx;
@@ -80,8 +81,8 @@ public class PeriodSecEnd extends BukkitRunnable{
 
 		if(PeriodCount_Stop.containsKey(player.getUniqueId().toString())) PeriodCount_Stop.remove(player.getUniqueId().toString());
 
-		this.lunachatapi.getChannel("_DOT_").removeMember(ChannelPlayer.getChannelPlayer(this.player.getUniqueId().toString()));
-
+		this.lunachatapi.getChannel("_DOT_").removeMember(ChannelPlayer.getChannelPlayer(this.player.getName()));
+		this.lunachatapi.removeDefaultChannel(this.player.getName());
 
 		Statement statement;
 		try {
@@ -157,6 +158,8 @@ public class PeriodSecEnd extends BukkitRunnable{
 			Bukkit.broadcastMessage("[.] " + ChatColor.GREEN + this.player.getName() + "のピリオド対決(" + this.section + "秒例外部門)の結果: 成功回数" + success + " 失敗回数" + unsuccess + "(部門外のためrankingなし)");
 			Discord.send(this.player.getName() + "のピリオド対決(" + this.section + "秒例外部門)の結果: 成功回数" + success + " 失敗回数" + unsuccess + "(部門外のためrankingなし)");
 		}
+		Period.RemoveRun(player);
+		Period.RemoveWait(player);
 	}
 	private boolean sendData(ResultSet res, SimpleDateFormat format, String date, int success, int unsuccess){
 		Map<Integer, String> sorts = new HashMap<Integer, String>();

@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
@@ -18,7 +19,7 @@ import com.jaoafa.PeriodMatch.PeriodClass.PeriodSecEnd;
  * @author tomachi
  *
  */
-public class PeriodSuccessCounter {
+public class PeriodSuccessCounter implements Listener {
 	JavaPlugin plugin;
 	public PeriodSuccessCounter(JavaPlugin plugin) {
 		this.plugin = plugin;
@@ -32,10 +33,14 @@ public class PeriodSuccessCounter {
 		}
 		if(Period.InRun(player)){
 			if(PeriodSecEnd.Success.containsKey(player.getUniqueId().toString())){
+				PeriodSecEnd.Success.put(player.getUniqueId().toString(),
+						PeriodSecEnd.Success.get(player.getUniqueId().toString()) + 1
+					);
+			}else{
 				PeriodSecEnd.Success.put(player.getUniqueId().toString(), 1);
 			}
 		}
-		if(Period.InWait(player)){
+		if(Period.InWait(player) && !Period.InRun(player)){
 			int sec = Period.getWaitingSec(player);
 			BukkitTask task;
 			try{
@@ -45,11 +50,12 @@ public class PeriodSuccessCounter {
 				Period.RemoveWait(player);
 				return;
 			}
-			PeriodMatch.lunachatapi.getChannel("_DOT_").addMember(ChannelPlayer.getChannelPlayer(player.getUniqueId().toString()));
+			PeriodMatch.lunachatapi.getChannel("_DOT_").addMember(ChannelPlayer.getChannelPlayer(player.getName()));
 			PeriodMatch.lunachatapi.setDefaultChannel(player.getName(), "_DOT_");
 			//DOT.kana.put(player.getName(), PeriodMatch.lunachatapi.isPlayerJapanize(player.getName()));
 			PeriodMatch.lunachatapi.setPlayersJapanize(player.getName(), false);
 			Period.RemoveWait(player);
+			Period.AddRun(player, sec);
 
 			PeriodSecEnd.Run.put(player.getUniqueId().toString(), task);
 			PeriodSecEnd.Success.put(player.getUniqueId().toString(), 1);

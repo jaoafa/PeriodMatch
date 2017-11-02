@@ -14,6 +14,8 @@ import com.github.ucchyocean.lc.LunaChatAPI;
 import com.jaoafa.PeriodMatch.Command.Period;
 import com.jaoafa.PeriodMatch.Command.Period_Manage;
 import com.jaoafa.PeriodMatch.Discord.Discord;
+import com.jaoafa.PeriodMatch.Event.PeriodFailCounter;
+import com.jaoafa.PeriodMatch.Event.PeriodSuccessCounter;
 
 public class PeriodMatch extends JavaPlugin {
 
@@ -22,6 +24,7 @@ public class PeriodMatch extends JavaPlugin {
 	public static String sqlpassword;
 	public static JavaPlugin instance = null;
 	public static PeriodMatch periodmatch = null;
+    private PeriodMatchManager manager;
 	public static LunaChatAPI lunachatapi;
 	public static LunaChat lunachat;
 	public static Discord discord = null;
@@ -41,6 +44,7 @@ public class PeriodMatch extends JavaPlugin {
 
 		instance = this;
 		periodmatch = this;
+		manager = new PeriodMatchManager();
 
 		lunachat = (LunaChat)getServer().getPluginManager().getPlugin("LunaChat");
 		lunachatapi = lunachat.getLunaChatAPI();
@@ -77,8 +81,17 @@ public class PeriodMatch extends JavaPlugin {
 	 * @author mine_book000
 	 */
 	private void Import_Listener(){
-
+		getServer().getPluginManager().registerEvents(new PeriodSuccessCounter(this), this);
+		getServer().getPluginManager().registerEvents(new PeriodFailCounter(this), this);
 	}
+
+	/**
+     * PeriodMatchAPIを取得する
+     * @return PeriodMatchAPI
+     */
+    public PeriodMatchAPI getPeriodMatchAPI() {
+        return manager;
+    }
 
 	private void loadConfig(){
 		FileConfiguration conf = getConfig();
@@ -162,7 +175,7 @@ public class PeriodMatch extends JavaPlugin {
 	 * @author mine_book000
 	 */
 	public static void CommandReply(CommandSender sender, Command cmd, String text){
-		sender.sendMessage("[" + cmd.getName().toUpperCase() +"] " + ChatColor.GREEN + text);
+		sender.sendMessage("[PeriodMatch] " + ChatColor.GREEN + text);
 	}
 
 	public static JavaPlugin getJavaPlugin(){

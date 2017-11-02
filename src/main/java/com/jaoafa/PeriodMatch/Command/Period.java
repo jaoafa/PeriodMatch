@@ -41,7 +41,7 @@ public class Period implements CommandExecutor {
 			PeriodMatch.CommandReply(sender, cmd, "「/. [TimeSecound]」でピリオド対決を行うことができます。");
 			PeriodMatch.CommandReply(sender, cmd, "「/. stop」で行っているピリオド対決を強制終了できます。");
 			return true;
-		}else if(args.length == 2){
+		}else if(args.length == 1){
 			if(isNumber(args[0])){
 				int sec = Integer.parseInt(args[0]);
 				Start(sender, cmd, player, sec);
@@ -98,7 +98,9 @@ public class Period implements CommandExecutor {
 	public static boolean InRun(Player player){
 		return running.containsKey(player.getUniqueId().toString());
 	}
-
+	public static void AddRun(Player player, int sec){
+		running.put(player.getUniqueId().toString(), sec);
+	}
 	public static boolean RemoveRun(Player player){
 		if(InRun(player)){
 			running.remove(player.getUniqueId().toString());
