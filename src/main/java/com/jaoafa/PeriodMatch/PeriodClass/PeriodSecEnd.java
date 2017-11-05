@@ -56,7 +56,7 @@ public class PeriodSecEnd extends BukkitRunnable{
 	public void run() {
 		int success = 0;
 		if(!this.player.isOnline()){
-
+			return;
 		}
 		if(Success.containsKey(this.player.getUniqueId().toString())){
 			success = Success.get(this.player.getUniqueId().toString());

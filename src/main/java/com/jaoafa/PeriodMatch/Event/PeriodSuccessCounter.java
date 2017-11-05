@@ -12,6 +12,7 @@ import org.bukkit.scheduler.BukkitTask;
 import com.github.ucchyocean.lc.channel.ChannelPlayer;
 import com.jaoafa.PeriodMatch.PeriodMatch;
 import com.jaoafa.PeriodMatch.Command.Period;
+import com.jaoafa.PeriodMatch.PeriodClass.PeriodCountDown;
 import com.jaoafa.PeriodMatch.PeriodClass.PeriodSecEnd;
 
 /**
@@ -49,6 +50,46 @@ public class PeriodSuccessCounter implements Listener {
 				player.sendMessage("[PeriodMatch] " + ChatColor.GREEN + "ピリオド対決を開始できませんでした。");
 				Period.RemoveWait(player);
 				return;
+			}
+			try{
+				if(sec == 10){
+					// 3s
+					new PeriodCountDown(plugin, player, PeriodMatch.lunachatapi, sec, 3).runTaskLater(plugin, (sec - 3) * 20);
+					// 2s
+					new PeriodCountDown(plugin, player, PeriodMatch.lunachatapi, sec, 2).runTaskLater(plugin, (sec - 2) * 20);
+					// 1s
+					new PeriodCountDown(plugin, player, PeriodMatch.lunachatapi, sec, 1).runTaskLater(plugin, (sec - 1) * 20);
+				}else if(sec == 60){
+					// 30s
+					new PeriodCountDown(plugin, player, PeriodMatch.lunachatapi, sec, 30).runTaskLater(plugin, (sec - 30) * 20);
+					// 10s
+					new PeriodCountDown(plugin, player, PeriodMatch.lunachatapi, sec, 10).runTaskLater(plugin, (sec - 10) * 20);
+					// 3s
+					new PeriodCountDown(plugin, player, PeriodMatch.lunachatapi, sec, 3).runTaskLater(plugin, (sec - 3) * 20);
+					// 2s
+					new PeriodCountDown(plugin, player, PeriodMatch.lunachatapi, sec, 2).runTaskLater(plugin, (sec - 2) * 20);
+					// 1s
+					new PeriodCountDown(plugin, player, PeriodMatch.lunachatapi, sec, 1).runTaskLater(plugin, (sec - 1) * 20);
+				}else if(sec == 300){
+					// 200s
+					new PeriodCountDown(plugin, player, PeriodMatch.lunachatapi, sec, 200).runTaskLater(plugin, (sec - 200) * 20);
+					// 100s
+					new PeriodCountDown(plugin, player, PeriodMatch.lunachatapi, sec, 100).runTaskLater(plugin, (sec - 100) * 20);
+					// 60s
+					new PeriodCountDown(plugin, player, PeriodMatch.lunachatapi, sec, 60).runTaskLater(plugin, (sec - 60) * 20);
+					// 30s
+					new PeriodCountDown(plugin, player, PeriodMatch.lunachatapi, sec, 30).runTaskLater(plugin, (sec - 30) * 20);
+					// 10s
+					new PeriodCountDown(plugin, player, PeriodMatch.lunachatapi, sec, 10).runTaskLater(plugin, (sec - 10) * 20);
+					// 3s
+					new PeriodCountDown(plugin, player, PeriodMatch.lunachatapi, sec, 3).runTaskLater(plugin, (sec - 3) * 20);
+					// 2s
+					new PeriodCountDown(plugin, player, PeriodMatch.lunachatapi, sec, 2).runTaskLater(plugin, (sec - 2) * 20);
+					// 1s
+					new PeriodCountDown(plugin, player, PeriodMatch.lunachatapi, sec, 1).runTaskLater(plugin, (sec - 1) * 20);
+				}
+				//new PeriodCountDown(plugin, player, PeriodMatch.lunachatapi, sec, 200).runTaskLater(plugin, sec * 20);
+			}catch(java.lang.NoClassDefFoundError e){
 			}
 			PeriodMatch.lunachatapi.getChannel("_DOT_").addMember(ChannelPlayer.getChannelPlayer(player.getName()));
 			PeriodMatch.lunachatapi.setDefaultChannel(player.getName(), "_DOT_");
