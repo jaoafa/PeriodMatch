@@ -10,6 +10,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.jaoafa.PeriodMatch.Command.Period;
 import com.jaoafa.PeriodMatch.PeriodClass.PeriodSecEnd;
 
+import net.md_5.bungee.api.ChatColor;
+
 /**
  * ピリオド失敗時のカウンター
  * @author tomachi
@@ -24,10 +26,14 @@ public class PeriodFailCounter implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onAsyncPlayerChatEvent(AsyncPlayerChatEvent event){
 		Player player = event.getPlayer();
-		if(event.getMessage().equalsIgnoreCase(".")){
+		if(!player.isSleeping() && event.getMessage().equalsIgnoreCase(".")){
+			//寝てなくてピリオドだったら無視
 			return;
 		}
 		if(Period.InRun(player)){
+			if(player.isSleeping()){
+				player.sendMessage("[PeriodMatch] " + ChatColor.GREEN + "寝ながらのピリオドは失敗と判定されます。");
+			}
 			if(PeriodSecEnd.Unsuccess.containsKey(player.getUniqueId().toString())){
 				PeriodSecEnd.Unsuccess.put(player.getUniqueId().toString(),
 						PeriodSecEnd.Unsuccess.get(player.getUniqueId().toString()) + 1

@@ -33,6 +33,9 @@ public class PeriodSuccessCounter implements Listener {
 			return;
 		}
 		if(Period.InRun(player)){
+			if(player.isSleeping()){
+				return;
+			}
 			if(PeriodSecEnd.Success.containsKey(player.getUniqueId().toString())){
 				PeriodSecEnd.Success.put(player.getUniqueId().toString(),
 						PeriodSecEnd.Success.get(player.getUniqueId().toString()) + 1
@@ -43,6 +46,12 @@ public class PeriodSuccessCounter implements Listener {
 		}
 		if(Period.InWait(player) && !Period.InRun(player)){
 			int sec = Period.getWaitingSec(player);
+			if(player.isSleeping()){
+				player.sendMessage("[PeriodMatch] " + ChatColor.GREEN + "ピリオド対決を開始できませんでした。");
+				player.sendMessage("[PeriodMatch] " + ChatColor.GREEN + "ルールを確認し、最初からやり直してください。");
+				Period.RemoveWait(player);
+				return;
+			}
 			BukkitTask task;
 			try{
 				task = new PeriodSecEnd(plugin, player, PeriodMatch.lunachatapi, sec).runTaskLater(plugin, sec * 20);
