@@ -38,6 +38,8 @@ public class PeriodSecEnd extends BukkitRunnable{
 	}
 
 	private Integer Calc(int success, int unsuccess){
+		if(success == 0) success = 1;
+		if(unsuccess == 0) unsuccess = 1;
 		return success * (success / (success + unsuccess)) - unsuccess;
 	}
 	//連投実行中か
