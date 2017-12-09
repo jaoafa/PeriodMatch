@@ -30,23 +30,11 @@ public class Discord {
 
 	public void start(){
 		try {
-			setClient(new ClientBuilder().withToken(token).build());
-		} catch (DiscordException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-			plugin.getLogger().info("Discordへの接続に失敗しました。(DiscordException Token)");
-			plugin.getLogger().info("Disable PeriodMatch...");
-			plugin.getServer().getPluginManager().disablePlugin(plugin);
-			return;
-		}
-		plugin.getLogger().info("Discordへの接続に成功しました。");
-		Discord4J.disableAudio();
-
-		//リスナー
-		client.getDispatcher().registerListener(this);
-
-		try {
-			client.login();
+			ClientBuilder builder = new ClientBuilder()
+				.withToken(token)
+				.registerListener(this);
+			Discord4J.disableAudio();
+			setClient(builder.login());
 		} catch (DiscordException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
@@ -62,6 +50,7 @@ public class Discord {
 			plugin.getServer().getPluginManager().disablePlugin(plugin);
 			return;
 		}
+		plugin.getLogger().info("Discordへの接続に成功しました。");
 
 		if (Discord4J.LOGGER instanceof Discord4J.Discord4JLogger) {
 			((Discord4J.Discord4JLogger) Discord4J.LOGGER).setLevel(Discord4J.Discord4JLogger.Level.NONE);
@@ -207,7 +196,7 @@ public class Discord {
             return;
         }
 
-		if(event.getGuild().getLongID() != new Long("189377932429492224")){
+		if(event.getGuild().getLongID() == new Long("189377932429492224")){
 			plugin.getLogger().info("DiscordGuildを選択しました。" + event.getGuild().getName());
 			setGuild(event.getGuild());
 		}
