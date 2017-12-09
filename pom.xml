@@ -21,6 +21,38 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<artifactSet>
+								<includes>
+									<include>*</include>
+									<!-- <include>com.github.austinv11:Discord4J</include> -->
+								</includes>
+							</artifactSet>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<transformers>
+						<transformer
+							implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+							<mainClass>xyz.jaoafa.mymaid.MyMaid</mainClass>
+						</transformer>
+					</transformers>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -81,9 +113,8 @@
 		<dependency>
 			<groupId>com.github.austinv11</groupId>
 			<artifactId>Discord4J</artifactId>
-			<version>2.7.0</version>
-			<systemPath>${basedir}/lib/Discord4j.jar</systemPath>
-			<scope>system</scope>
+			<version>2.9.3</version>
+			<classifier>shaded</classifier>
 		</dependency>
 	</dependencies>
 	<url>http://jaoafa.com/</url>
