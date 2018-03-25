@@ -22,6 +22,7 @@ public class PeriodMatch extends JavaPlugin {
 	public static Connection c = null;
 	public static String sqluser;
 	public static String sqlpassword;
+	public static String sqlserver;
 	public static JavaPlugin instance = null;
 	public static PeriodMatch periodmatch = null;
     private PeriodMatchManager manager;
@@ -95,10 +96,14 @@ public class PeriodMatch extends JavaPlugin {
 
 	private void loadConfig(){
 		FileConfiguration conf = getConfig();
+
 		if(conf.contains("sqluser") && conf.contains("sqlpassword")){
 			PeriodMatch.sqluser = conf.getString("sqluser");
 			PeriodMatch.sqlpassword = conf.getString("sqlpassword");
-			MySQL_Enable(conf.getString("sqluser"), conf.getString("sqlpassword"));
+			if(conf.contains("sqlserver")){
+				sqlserver = (String) conf.get("sqlserver");
+			}
+			MySQL_Enable();
 		}else{
 			getLogger().info("MySQL Connect err. [conf NotFound]");
 			getLogger().info("Disable PeriodMatch...");
@@ -118,20 +123,19 @@ public class PeriodMatch extends JavaPlugin {
 	 * MySQLの初期設定
 	 * @author mine_book000
 	 */
-	private void MySQL_Enable(String user, String password){
-		MySQL MySQL = new MySQL("jaoafa.com", "3306", "jaoafa", user, password);
+	private void MySQL_Enable(){
+		MySQL MySQL = new MySQL(sqlserver, "3306", "jaoafa", sqluser, sqlpassword);
 
 		try {
 			c = MySQL.openConnection();
+			//ConnectionCreate = System.currentTimeMillis() / 1000L;
 		} catch (ClassNotFoundException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 			getLogger().info("MySQL Connect err. [ClassNotFoundException]");
 			getLogger().info("Disable PeriodMatch...");
 			getServer().getPluginManager().disablePlugin(this);
 			return;
 		} catch (SQLException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 			getLogger().info("MySQL Connect err. [SQLException: " + e.getSQLState() + "]");
 			getLogger().info("Disable PeriodMatch...");

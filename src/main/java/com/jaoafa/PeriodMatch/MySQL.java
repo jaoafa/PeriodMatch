@@ -83,7 +83,7 @@ public class MySQL extends Database {
 			statement.executeQuery("SELECT * FROM chetab LIMIT 1");
 			return statement;
 		} catch (CommunicationsException e){
-			MySQL MySQL = new MySQL("jaoafa.com", "3306", "jaoafa", PeriodMatch.sqluser, PeriodMatch.sqlpassword);
+			MySQL MySQL = new MySQL(PeriodMatch.sqlserver, "3306", "jaoafa", PeriodMatch.sqluser, PeriodMatch.sqlpassword);
 			try {
 				PeriodMatch.c = MySQL.openConnection();
 				statement = PeriodMatch.c.createStatement();
