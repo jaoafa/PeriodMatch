@@ -9,7 +9,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.github.ucchyocean.lc.channel.ChannelPlayer;
 import com.jaoafa.PeriodMatch.PeriodMatch;
+import com.jaoafa.PeriodMatch.PeriodClass.PeriodSecEnd;
 
 /**
  * コマンド「/.」用のプログラム
@@ -133,6 +135,13 @@ public class Period implements CommandExecutor {
 		if(InWait(player)){
 			waiting.remove(player.getUniqueId().toString());
 		}
+		if(PeriodSecEnd.Run.containsKey(player.getUniqueId().toString())){
+			PeriodSecEnd.Run.get(player.getUniqueId().toString()).cancel();
+		}
+
+		PeriodMatch.lunachatapi.getChannel("_DOT_").removeMember(ChannelPlayer.getChannelPlayer(player.getName()));
+		PeriodMatch.lunachatapi.removeDefaultChannel(player.getName());
+
 		PeriodMatch.CommandReply(sender, cmd, "ピリオド対決を強制終了しました。");
 	}
 }
