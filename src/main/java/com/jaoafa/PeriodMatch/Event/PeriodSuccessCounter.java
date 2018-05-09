@@ -14,6 +14,7 @@ import com.jaoafa.PeriodMatch.PeriodMatch;
 import com.jaoafa.PeriodMatch.Command.Period;
 import com.jaoafa.PeriodMatch.PeriodClass.PeriodCountDown;
 import com.jaoafa.PeriodMatch.PeriodClass.PeriodSecEnd;
+import com.jaoafa.jaoSuperAchievement.AchievementAPI.AchievementAPI;
 import com.jaoafa.jaoSuperAchievement.jaoAchievement.AchievementType;
 import com.jaoafa.jaoSuperAchievement.jaoAchievement.Achievementjao;
 
@@ -110,8 +111,7 @@ public class PeriodSuccessCounter implements Listener {
 			Period.AddRun(player, sec);
 
 			if(!Achievementjao.getAchievement(player, new AchievementType(12))){
-				player.sendMessage("[" + ChatColor.RED + "j" + ChatColor.GOLD + "a" + ChatColor.YELLOW + "o" + ChatColor.GREEN + "S" + ChatColor.AQUA + "u" + ChatColor.BLUE + "p" + ChatColor.DARK_BLUE + "e" + ChatColor.RED + "r" + ChatColor.GOLD + "A" + ChatColor.YELLOW + "c" + ChatColor.GREEN + "h" + ChatColor.AQUA + "i" + ChatColor.BLUE + "e" + ChatColor.DARK_BLUE + "v" + ChatColor.RED + "e" + ChatColor.GOLD + "m" + ChatColor.YELLOW + "e" + ChatColor.GREEN + "n" + ChatColor.AQUA + "t" + ChatColor.RESET + "] "
-						+ "実績の解除中に問題が発生しました。もう一度お試しください。");
+				player.sendMessage(AchievementAPI.getPrefix() + "実績の解除中に問題が発生しました。もう一度お試しください。");
 				return;
 			}
 
