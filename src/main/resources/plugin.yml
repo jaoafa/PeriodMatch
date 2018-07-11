@@ -1,6 +1,6 @@
-name: PeriodMatch
+name: ${project.artifactId}
 main: com.jaoafa.PeriodMatch.PeriodMatch
-version: 0.0.1
+version: ${project.version}
 description: jao Minecraft Serverでよく使用される「.」を使った対決がいまここに…！
 database: true
 author: mine_book000

@@ -8,6 +8,13 @@
   <description>jao Minecraft Serverでよく使用される「.」を使った対決がいまここに…！</description>
   <url>http://jaoafa.com/</url>
   <build>
+    <resources>
+      <resource>
+        <targetPath>.</targetPath>
+        <filtering>true</filtering>
+        <directory>src/main/resources/</directory>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
