@@ -40,7 +40,7 @@ public class Period implements CommandExecutor {
 				PeriodMatch.CommandReply(sender, cmd, "現在あなたはピリオド対決を" + getRunningSec(player) + "秒で待機しています。");
 				PeriodMatch.CommandReply(sender, cmd, "次に「.」と打った瞬間から開始します。");
 			}
-			PeriodMatch.CommandReply(sender, cmd, "「/. [TimeSecound]」でピリオド対決を行うことができます。");
+			PeriodMatch.CommandReply(sender, cmd, "「/. [TimeSecond]」でピリオド対決を行うことができます。");
 			PeriodMatch.CommandReply(sender, cmd, "「/. stop」で行っているピリオド対決を強制終了できます。");
 			return true;
 		}else if(args.length == 1){
